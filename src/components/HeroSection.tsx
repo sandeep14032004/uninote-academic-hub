@@ -1,142 +1,129 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BookOpen, Users, Zap } from "lucide-react";
+import { ArrowRight, Play, BookOpen, Users, Award, Shield } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-uninote-light via-white to-blue-50 overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-uninote-blue/20 to-uninote-purple/20 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-uninote-purple/20 to-uninote-blue/20 rounded-full blur-3xl animate-float" style={{animationDelay: '3s'}}></div>
-        
-        {/* Abstract shapes */}
-        <svg className="absolute top-20 left-10 w-16 h-16 text-uninote-blue/30" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 10 5.16-.26 9-4.45 9-10V7l-10-5z"/>
-        </svg>
-        <svg className="absolute bottom-32 right-20 w-12 h-12 text-uninote-purple/30" viewBox="0 0 24 24" fill="currentColor">
-          <circle cx="12" cy="12" r="10"/>
-        </svg>
+    <section className="min-h-screen bg-gradient-to-br from-uninote-light via-white to-blue-50 relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-uninote-blue to-uninote-purple rounded-full mix-blend-multiply filter blur-xl animate-float"></div>
+        <div className="absolute top-40 right-20 w-96 h-96 bg-gradient-to-r from-uninote-purple to-pink-300 rounded-full mix-blend-multiply filter blur-xl animate-float" style={{animationDelay: '2s'}}></div>
+        <div className="absolute bottom-20 left-1/2 w-80 h-80 bg-gradient-to-r from-blue-300 to-uninote-blue rounded-full mix-blend-multiply filter blur-xl animate-float" style={{animationDelay: '4s'}}></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
           {/* Left Column - Content */}
-          <div className="space-y-8 animate-fade-in">
-            <div className="space-y-6">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-uninote-dark leading-tight">
-                All Your University Notes,{" "}
-                <span className="bg-gradient-to-r from-uninote-blue to-uninote-purple bg-clip-text text-transparent">
-                  One Click Away
-                </span>
-              </h1>
-              
-              <p className="text-xl text-gray-600 leading-relaxed max-w-lg">
-                UniNote helps students access semester-wise and subject-wise notes easily. 
-                From B.Tech to MBA – everything you need is here.
-              </p>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button 
-                size="lg" 
-                className="bg-gradient-to-r from-uninote-blue to-uninote-purple hover:from-uninote-purple hover:to-uninote-blue text-white px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                Get Started
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+          <div className="text-center lg:text-left animate-fade-in">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-uninote-dark leading-tight mb-6">
+              All Your University Notes,{" "}
+              <span className="bg-gradient-to-r from-uninote-blue to-uninote-purple bg-clip-text text-transparent">
+                One Click Away
+              </span>
+            </h1>
+            
+            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0">
+              UniNote helps students access semester-wise and subject-wise notes easily. 
+              From B.Tech to MBA – everything you need is here.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
+              <Link to="/login">
+                <Button 
+                  size="lg" 
+                  className="bg-gradient-to-r from-uninote-blue to-uninote-purple hover:from-uninote-purple hover:to-uninote-blue text-white px-8 py-4 text-lg font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                >
+                  Get Started
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
               
               <Button 
                 variant="outline" 
                 size="lg"
-                className="border-2 border-uninote-blue text-uninote-blue hover:bg-uninote-blue hover:text-white px-8 py-6 text-lg font-semibold transition-all duration-300"
+                className="border-2 border-uninote-blue text-uninote-blue hover:bg-uninote-blue hover:text-white px-8 py-4 text-lg font-semibold rounded-2xl transition-all duration-300 hover:scale-105"
               >
+                <Play className="mr-2 h-5 w-5" />
                 Learn More
               </Button>
             </div>
 
             {/* Stats */}
-            <div className="flex flex-wrap gap-8 pt-8">
-              <div className="flex items-center space-x-2">
-                <Users className="h-5 w-5 text-uninote-blue" />
-                <span className="text-sm text-gray-600">10,000+ Students</span>
+            <div className="grid grid-cols-3 gap-8 max-w-md mx-auto lg:mx-0">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-uninote-blue mb-1">10K+</div>
+                <div className="text-gray-600 text-sm">Students</div>
               </div>
-              <div className="flex items-center space-x-2">
-                <BookOpen className="h-5 w-5 text-uninote-purple" />
-                <span className="text-sm text-gray-600">50+ Courses</span>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-uninote-purple mb-1">500+</div>
+                <div className="text-gray-600 text-sm">Notes</div>
               </div>
-              <div className="flex items-center space-x-2">
-                <Zap className="h-5 w-5 text-uninote-blue" />
-                <span className="text-sm text-gray-600">Admin Verified</span>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-uninote-blue mb-1">50+</div>
+                <div className="text-gray-600 text-sm">Subjects</div>
               </div>
             </div>
           </div>
 
-          {/* Right Column - Illustration/Mockup */}
+          {/* Right Column - Illustration */}
           <div className="relative animate-slide-in-right">
-            <div className="relative">
-              {/* Main mockup container */}
-              <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-200/50">
-                <div className="space-y-6">
-                  {/* Header */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 bg-gradient-to-r from-uninote-blue to-uninote-purple rounded-lg"></div>
-                      <span className="font-semibold text-gray-800">UniNote Dashboard</span>
+            <div className="bg-white/20 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/20">
+              {/* Mock App Interface */}
+              <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+                {/* Header */}
+                <div className="bg-gradient-to-r from-uninote-blue to-uninote-purple p-4 text-white">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-3 h-3 bg-white/30 rounded-full"></div>
+                    <div className="w-3 h-3 bg-white/30 rounded-full"></div>
+                    <div className="w-3 h-3 bg-white/30 rounded-full"></div>
+                  </div>
+                  <h3 className="text-lg font-semibold mt-4">UniNote Dashboard</h3>
+                </div>
+                
+                {/* Content */}
+                <div className="p-6">
+                  <div className="grid grid-cols-2 gap-4 mb-6">
+                    <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-xl">
+                      <BookOpen className="h-8 w-8 text-uninote-blue mb-2" />
+                      <div className="text-sm font-semibold text-gray-800">B.Tech</div>
+                      <div className="text-xs text-gray-600">Engineering</div>
                     </div>
-                    <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
+                    <div className="bg-gradient-to-r from-purple-50 to-purple-100 p-4 rounded-xl">
+                      <Users className="h-8 w-8 text-uninote-purple mb-2" />
+                      <div className="text-sm font-semibold text-gray-800">MCA</div>
+                      <div className="text-xs text-gray-600">Computer Apps</div>
+                    </div>
                   </div>
                   
-                  {/* Course cards */}
                   <div className="space-y-3">
-                    <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 border border-blue-100">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h3 className="font-semibold text-gray-800">Computer Science</h3>
-                          <p className="text-sm text-gray-600">Semester 5 • 12 subjects</p>
-                        </div>
-                        <div className="w-12 h-12 bg-uninote-blue/10 rounded-lg flex items-center justify-center">
-                          <BookOpen className="h-6 w-6 text-uninote-blue" />
-                        </div>
-                      </div>
+                    <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                      <div className="w-2 h-2 bg-uninote-blue rounded-full"></div>
+                      <span className="text-sm text-gray-700">Data Structures</span>
+                      <div className="ml-auto text-xs text-gray-500">PDF</div>
                     </div>
-                    
-                    <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-4 border border-purple-100">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h3 className="font-semibold text-gray-800">Business Management</h3>
-                          <p className="text-sm text-gray-600">Semester 3 • 8 subjects</p>
-                        </div>
-                        <div className="w-12 h-12 bg-uninote-purple/10 rounded-lg flex items-center justify-center">
-                          <BookOpen className="h-6 w-6 text-uninote-purple" />
-                        </div>
-                      </div>
+                    <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                      <div className="w-2 h-2 bg-uninote-purple rounded-full"></div>
+                      <span className="text-sm text-gray-700">Database Systems</span>
+                      <div className="ml-auto text-xs text-gray-500">PDF</div>
                     </div>
-                    
-                    <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-4 border border-green-100">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h3 className="font-semibold text-gray-800">Engineering</h3>
-                          <p className="text-sm text-gray-600">Semester 7 • 15 subjects</p>
-                        </div>
-                        <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center">
-                          <BookOpen className="h-6 w-6 text-green-600" />
-                        </div>
-                      </div>
+                    <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                      <span className="text-sm text-gray-700">Operating Systems</span>
+                      <div className="ml-auto text-xs text-gray-500">PDF</div>
                     </div>
                   </div>
                 </div>
               </div>
-
-              {/* Floating elements */}
-              <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-r from-uninote-blue to-uninote-purple rounded-2xl shadow-lg flex items-center justify-center animate-float">
-                <Zap className="h-8 w-8 text-white" />
-              </div>
-              
-              <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-white rounded-xl shadow-lg border border-gray-200 flex items-center justify-center animate-float" style={{animationDelay: '2s'}}>
-                <Users className="h-6 w-6 text-uninote-purple" />
-              </div>
+            </div>
+            
+            {/* Floating Elements */}
+            <div className="absolute -top-4 -right-4 bg-white rounded-2xl p-4 shadow-xl border border-gray-100 animate-float">
+              <Award className="h-8 w-8 text-uninote-blue" />
+            </div>
+            <div className="absolute -bottom-4 -left-4 bg-white rounded-2xl p-4 shadow-xl border border-gray-100 animate-float" style={{animationDelay: '1s'}}>
+              <Shield className="h-8 w-8 text-uninote-purple" />
             </div>
           </div>
         </div>

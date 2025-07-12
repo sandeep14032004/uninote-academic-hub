@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { GraduationCap, Menu, X } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,14 +12,14 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2">
             <div className="bg-gradient-to-r from-uninote-blue to-uninote-purple p-2 rounded-xl">
               <GraduationCap className="h-6 w-6 text-white" />
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-uninote-blue to-uninote-purple bg-clip-text text-transparent">
               UniNote
             </span>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
@@ -28,12 +29,16 @@ const Navigation = () => {
             <a href="#about" className="text-gray-700 hover:text-uninote-blue transition-colors font-medium">
               About
             </a>
-            <Button variant="outline" className="border-uninote-blue text-uninote-blue hover:bg-uninote-blue hover:text-white">
-              Login
-            </Button>
-            <Button className="bg-gradient-to-r from-uninote-blue to-uninote-purple hover:from-uninote-purple hover:to-uninote-blue">
-              Sign Up
-            </Button>
+            <Link to="/login">
+              <Button variant="outline" className="border-uninote-blue text-uninote-blue hover:bg-uninote-blue hover:text-white">
+                Login
+              </Button>
+            </Link>
+            <Link to="/login">
+              <Button className="bg-gradient-to-r from-uninote-blue to-uninote-purple hover:from-uninote-purple hover:to-uninote-blue">
+                Sign Up
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -58,12 +63,16 @@ const Navigation = () => {
                 About
               </a>
               <div className="flex flex-col space-y-2 px-4">
-                <Button variant="outline" className="border-uninote-blue text-uninote-blue hover:bg-uninote-blue hover:text-white">
-                  Login
-                </Button>
-                <Button className="bg-gradient-to-r from-uninote-blue to-uninote-purple hover:from-uninote-purple hover:to-uninote-blue">
-                  Sign Up
-                </Button>
+                <Link to="/login">
+                  <Button variant="outline" className="w-full border-uninote-blue text-uninote-blue hover:bg-uninote-blue hover:text-white">
+                    Login
+                  </Button>
+                </Link>
+                <Link to="/login">
+                  <Button className="w-full bg-gradient-to-r from-uninote-blue to-uninote-purple hover:from-uninote-purple hover:to-uninote-blue">
+                    Sign Up
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
