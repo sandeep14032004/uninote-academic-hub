@@ -3,7 +3,8 @@ import { useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { GraduationCap, LogOut, User, ChevronRight, Home, Calendar } from "lucide-react";
+import { GraduationCap, ChevronRight, Home, Calendar } from "lucide-react";
+import UserDropdown from "@/components/UserDropdown";
 
 const CourseView = () => {
   const { course } = useParams();
@@ -15,11 +16,6 @@ const CourseView = () => {
       navigate("/login");
     }
   }, [navigate]);
-
-  const handleLogout = () => {
-    localStorage.removeItem("isAuthenticated");
-    navigate("/");
-  };
 
   const getCourseName = (courseId: string) => {
     const courseNames: Record<string, string> = {
@@ -33,10 +29,29 @@ const CourseView = () => {
   };
 
   const getSemesters = (courseId: string) => {
-    if (courseId === 'mba') {
-      return Array.from({ length: 4 }, (_, i) => `Semester ${i + 1}`);
-    }
-    return Array.from({ length: 8 }, (_, i) => `Semester ${i + 1}`);
+    const semesterData: Record<string, { number: number; subjects: number }[]> = {
+      'mba': [
+        { number: 1, subjects: 6 },
+        { number: 2, subjects: 6 },
+        { number: 3, subjects: 5 },
+        { number: 4, subjects: 4 }
+      ],
+      'btech': [
+        { number: 1, subjects: 4 },
+        { number: 2, subjects: 4 },
+        { number: 3, subjects: 4 },
+        { number: 4, subjects: 5 },
+        { number: 5, subjects: 6 },
+        { number: 6, subjects: 6 },
+        { number: 7, subjects: 5 },
+        { number: 8, subjects: 4 }
+      ]
+    };
+
+    return semesterData[courseId] || Array.from({ length: 8 }, (_, i) => ({ 
+      number: i + 1, 
+      subjects: Math.floor(Math.random() * 3) + 4 
+    }));
   };
 
   const semesters = getSemesters(course || '');
@@ -56,20 +71,7 @@ const CourseView = () => {
               </span>
             </Link>
             
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2 text-gray-700">
-                <User className="h-5 w-5" />
-                <span className="font-medium">Student</span>
-              </div>
-              <Button 
-                variant="outline" 
-                onClick={handleLogout}
-                className="flex items-center space-x-2 border-red-200 text-red-600 hover:bg-red-50"
-              >
-                <LogOut className="h-4 w-4" />
-                <span>Logout</span>
-              </Button>
-            </div>
+            <UserDropdown userName="Student" />
           </div>
         </div>
       </nav>
@@ -103,19 +105,22 @@ const CourseView = () => {
 
         {/* Semester Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {semesters.map((semester, index) => (
+          {semesters.map((semesterData) => (
             <Card 
-              key={semester}
-              className="group bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer"
-              onClick={() => navigate(`/dashboard/${course}/${index + 1}`)}
+              key={semesterData.number}
+              className="group bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] hover:translate-y-[-4px] cursor-pointer"
+              onClick={() => navigate(`/dashboard/${course}/${semesterData.number}`)}
             >
               <CardHeader className="text-center pb-4">
                 <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r from-uninote-blue to-uninote-purple flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <Calendar className="h-8 w-8 text-white" />
                 </div>
                 <CardTitle className="text-xl font-bold text-gray-800 group-hover:text-uninote-blue transition-colors">
-                  {semester}
+                  Semester {semesterData.number}
                 </CardTitle>
+                <div className="text-sm text-gray-500 mt-2">
+                  Total Subjects: {semesterData.subjects}
+                </div>
               </CardHeader>
               <CardContent className="text-center">
                 <Button 

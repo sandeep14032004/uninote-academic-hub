@@ -3,7 +3,8 @@ import { useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { GraduationCap, LogOut, User, ChevronRight, Home, BookOpen } from "lucide-react";
+import { GraduationCap, ChevronRight, Home, BookOpen } from "lucide-react";
+import UserDropdown from "@/components/UserDropdown";
 
 const SemesterView = () => {
   const { course, semester } = useParams();
@@ -15,11 +16,6 @@ const SemesterView = () => {
       navigate("/login");
     }
   }, [navigate]);
-
-  const handleLogout = () => {
-    localStorage.removeItem("isAuthenticated");
-    navigate("/");
-  };
 
   const getCourseName = (courseId: string) => {
     const courseNames: Record<string, string> = {
@@ -33,42 +29,41 @@ const SemesterView = () => {
   };
 
   const getSubjects = (courseId: string, sem: string) => {
-    // Sample subjects for different courses
     const subjects: Record<string, Record<string, any[]>> = {
       'btech': {
         '1': [
-          { id: 'math1', name: 'Mathematics I', description: 'Calculus and Linear Algebra' },
-          { id: 'physics', name: 'Physics', description: 'Mechanics and Thermodynamics' },
-          { id: 'chemistry', name: 'Chemistry', description: 'Organic and Inorganic Chemistry' },
-          { id: 'english', name: 'English', description: 'Technical Communication' }
+          { id: 'math1', name: 'Mathematics I', code: 'MA101', description: 'Calculus and Linear Algebra', notes: 15 },
+          { id: 'physics', name: 'Physics', code: 'PH101', description: 'Mechanics and Thermodynamics', notes: 12 },
+          { id: 'chemistry', name: 'Chemistry', code: 'CH101', description: 'Organic and Inorganic Chemistry', notes: 10 },
+          { id: 'english', name: 'English', code: 'EN101', description: 'Technical Communication', notes: 8 }
         ],
         '2': [
-          { id: 'math2', name: 'Mathematics II', description: 'Differential Equations' },
-          { id: 'programming', name: 'Programming', description: 'C/C++ Programming' },
-          { id: 'electronics', name: 'Electronics', description: 'Basic Electronics' },
-          { id: 'workshop', name: 'Workshop', description: 'Engineering Practices' }
+          { id: 'math2', name: 'Mathematics II', code: 'MA102', description: 'Differential Equations', notes: 18 },
+          { id: 'programming', name: 'Programming', code: 'CS102', description: 'C/C++ Programming', notes: 22 },
+          { id: 'electronics', name: 'Electronics', code: 'EC102', description: 'Basic Electronics', notes: 14 },
+          { id: 'workshop', name: 'Workshop', code: 'ME102', description: 'Engineering Practices', notes: 6 }
         ],
         '3': [
-          { id: 'dsa', name: 'Data Structures', description: 'Algorithms and Data Structures' },
-          { id: 'dbms', name: 'DBMS', description: 'Database Management Systems' },
-          { id: 'oop', name: 'OOP', description: 'Object Oriented Programming' },
-          { id: 'os', name: 'Operating Systems', description: 'System Programming' }
+          { id: 'dsa', name: 'Data Structures', code: 'CS301', description: 'Algorithms and Data Structures', notes: 25 },
+          { id: 'dbms', name: 'DBMS', code: 'CS302', description: 'Database Management Systems', notes: 20 },
+          { id: 'oop', name: 'OOP', code: 'CS303', description: 'Object Oriented Programming', notes: 18 },
+          { id: 'os', name: 'Operating Systems', code: 'CS304', description: 'System Programming', notes: 16 }
         ]
       },
       'mca': {
         '1': [
-          { id: 'programming', name: 'Programming in C', description: 'Basic Programming Concepts' },
-          { id: 'math', name: 'Discrete Mathematics', description: 'Mathematical Foundations' },
-          { id: 'computer', name: 'Computer Fundamentals', description: 'Basic Computer Science' },
-          { id: 'stats', name: 'Statistics', description: 'Statistical Methods' }
+          { id: 'programming', name: 'Programming in C', code: 'MCA101', description: 'Basic Programming Concepts', notes: 12 },
+          { id: 'math', name: 'Discrete Mathematics', code: 'MCA102', description: 'Mathematical Foundations', notes: 15 },
+          { id: 'computer', name: 'Computer Fundamentals', code: 'MCA103', description: 'Basic Computer Science', notes: 10 },
+          { id: 'stats', name: 'Statistics', code: 'MCA104', description: 'Statistical Methods', notes: 8 }
         ]
       }
     };
 
     return subjects[courseId]?.[sem] || [
-      { id: 'subject1', name: 'Subject 1', description: 'Course material and notes' },
-      { id: 'subject2', name: 'Subject 2', description: 'Course material and notes' },
-      { id: 'subject3', name: 'Subject 3', description: 'Course material and notes' }
+      { id: 'subject1', name: 'Subject 1', code: 'SUB101', description: 'Course material and notes', notes: 5 },
+      { id: 'subject2', name: 'Subject 2', code: 'SUB102', description: 'Course material and notes', notes: 7 },
+      { id: 'subject3', name: 'Subject 3', code: 'SUB103', description: 'Course material and notes', notes: 4 }
     ];
   };
 
@@ -89,20 +84,7 @@ const SemesterView = () => {
               </span>
             </Link>
             
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2 text-gray-700">
-                <User className="h-5 w-5" />
-                <span className="font-medium">Student</span>
-              </div>
-              <Button 
-                variant="outline" 
-                onClick={handleLogout}
-                className="flex items-center space-x-2 border-red-200 text-red-600 hover:bg-red-50"
-              >
-                <LogOut className="h-4 w-4" />
-                <span>Logout</span>
-              </Button>
-            </div>
+            <UserDropdown userName="Student" />
           </div>
         </div>
       </nav>
@@ -143,7 +125,7 @@ const SemesterView = () => {
           {subjects.map((subject) => (
             <Card 
               key={subject.id}
-              className="group bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer"
+              className="group bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] hover:translate-y-[-4px] cursor-pointer"
               onClick={() => navigate(`/dashboard/${course}/${semester}/${subject.id}`)}
             >
               <CardHeader className="text-center pb-4">
@@ -153,9 +135,15 @@ const SemesterView = () => {
                 <CardTitle className="text-xl font-bold text-gray-800 group-hover:text-uninote-blue transition-colors">
                   {subject.name}
                 </CardTitle>
+                <div className="text-sm font-medium text-uninote-purple bg-uninote-purple/10 px-2 py-1 rounded-full inline-block mb-2">
+                  {subject.code}
+                </div>
                 <CardDescription className="text-gray-600">
                   {subject.description}
                 </CardDescription>
+                <div className="text-sm text-gray-500 mt-2">
+                  {subject.notes} notes available
+                </div>
               </CardHeader>
               <CardContent className="text-center">
                 <Button 

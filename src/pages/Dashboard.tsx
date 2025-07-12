@@ -4,40 +4,52 @@ import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { GraduationCap, LogOut, User, BookOpen, Code, Building, Briefcase, MoreHorizontal } from "lucide-react";
+import UserDropdown from "@/components/UserDropdown";
+import StatsCard from "@/components/StatsCard";
 
 const courses = [
   {
     id: "btech",
     title: "B.Tech",
-    description: "Bachelor of Technology - Engineering courses",
+    fullForm: "Bachelor of Technology",
+    description: "Engineering courses",
+    semesters: 8,
     icon: Code,
     color: "from-blue-500 to-cyan-500"
   },
   {
     id: "mca",
     title: "MCA",
-    description: "Master of Computer Applications",
+    fullForm: "Master of Computer Applications",
+    description: "Computer Applications",
+    semesters: 4,
     icon: BookOpen,
     color: "from-purple-500 to-pink-500"
   },
   {
     id: "bca",
     title: "BCA",
-    description: "Bachelor of Computer Applications",
+    fullForm: "Bachelor of Computer Applications",
+    description: "Computer Applications",
+    semesters: 6,
     icon: Building,
     color: "from-green-500 to-teal-500"
   },
   {
     id: "mba",
     title: "MBA",
-    description: "Master of Business Administration",
+    fullForm: "Master of Business Administration",
+    description: "Business Administration",
+    semesters: 4,
     icon: Briefcase,
     color: "from-orange-500 to-red-500"
   },
   {
     id: "others",
     title: "Others",
-    description: "Additional courses and programs",
+    fullForm: "Additional Courses",
+    description: "Additional programs",
+    semesters: 6,
     icon: MoreHorizontal,
     color: "from-gray-500 to-slate-500"
   }
@@ -45,7 +57,7 @@ const courses = [
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [userName] = useState("Student"); // This would come from auth context
+  const [userName] = useState("Student");
 
   useEffect(() => {
     const isAuthenticated = localStorage.getItem("isAuthenticated");
@@ -53,11 +65,6 @@ const Dashboard = () => {
       navigate("/login");
     }
   }, [navigate]);
-
-  const handleLogout = () => {
-    localStorage.removeItem("isAuthenticated");
-    navigate("/");
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-uninote-light via-white to-blue-50">
@@ -74,20 +81,7 @@ const Dashboard = () => {
               </span>
             </Link>
             
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2 text-gray-700">
-                <User className="h-5 w-5" />
-                <span className="font-medium">{userName}</span>
-              </div>
-              <Button 
-                variant="outline" 
-                onClick={handleLogout}
-                className="flex items-center space-x-2 border-red-200 text-red-600 hover:bg-red-50"
-              >
-                <LogOut className="h-4 w-4" />
-                <span>Logout</span>
-              </Button>
-            </div>
+            <UserDropdown userName={userName} />
           </div>
         </div>
       </nav>
@@ -125,9 +119,12 @@ const Dashboard = () => {
                   <CardTitle className="text-2xl font-bold text-gray-800 group-hover:text-uninote-blue transition-colors">
                     {course.title}
                   </CardTitle>
-                  <CardDescription className="text-gray-600">
-                    {course.description}
+                  <CardDescription className="text-gray-600 font-medium">
+                    {course.fullForm}
                   </CardDescription>
+                  <div className="text-sm text-gray-500 mt-2">
+                    {course.semesters} Semesters
+                  </div>
                 </CardHeader>
                 <CardContent className="text-center">
                   <Button 
@@ -140,6 +137,9 @@ const Dashboard = () => {
             );
           })}
         </div>
+
+        {/* Stats Section */}
+        <StatsCard />
       </div>
     </div>
   );
